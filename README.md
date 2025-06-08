@@ -13,7 +13,6 @@ This is a Node.js backend application designed to handle feedback submissions fr
 - [Development](#development)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 - Receives feedback via GET request.
