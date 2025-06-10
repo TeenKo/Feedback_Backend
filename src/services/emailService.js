@@ -21,19 +21,25 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- * Sends a feedback email to the configured recipient.
+ * Sends a feedback email to the configured recipient with a dynamic subject.
  * @async
  * @function sendFeedbackEmail
  * @param {string} feedback - The feedback message to send.
+ * @param {boolean} isProposal - Indicates if the feedback is a proposal.
+ * @param {boolean} isBug - Indicates if the feedback is a bug report.
  * @returns {Promise<Object>} Object with { success: true, message: string }
  * @throws {Error} If email sending fails.
  */
-export const sendFeedbackEmail = async (feedback) => {
+export const sendFeedbackEmail = async (feedback, isProposal, isBug) => {
   try {
+    let subject = ENV.MAIL_TITLE || 'New feedback from demo';
+    if (isProposal) subject += ' #proposal';
+    if (isBug) subject += ' #bug';
+
     const mailOptions = {
       from: ENV.EMAIL,
       to: ENV.EMAIL,
-      subject: ENV.MAIL_TITLE,
+      subject: subject,
       text: feedback,
       encoding: 'utf-8',
     };
